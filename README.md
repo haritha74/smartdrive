@@ -13,7 +13,7 @@ This project detects driver activity such as drowsiness, distraction, phone usag
 - Detection classes: Distracted, Drinking, Drowsy, Eating, PhoneUse, SafeDriving, Seatbelt, Smoking
 - Email alerts for high-risk behavior
 - User registration and login with MySQL
-- Included training notebooks, trained weights, project report, presentations, and demo videos
+- Included training notebooks, trained weights, model outputs, and project abstract
 
 ## Project Structure
 
@@ -22,9 +22,6 @@ Abstract/      Project abstract in PDF and Word formats
 Code/
   Backend/     YOLO training notebooks, predictions, and training outputs
   Frontend/    Flask application, templates, static assets, database SQL, and model file
-Document/      Final project document
-PPT/           Project presentation files
-Video/         Demo and execution videos
 ```
 
 ## Requirements
@@ -92,5 +89,5 @@ http://127.0.0.1:5000
 ## Notes
 
 - The trained model file `best.pt` must be available in `Code/Frontend`.
-- Large files are tracked using Git LFS.
+- Large model and archive files are tracked using Git LFS.
 - Do not commit real email passwords or application secrets. Use environment variables instead.
