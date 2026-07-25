@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Driver Monitoring System</title>
+    <link rel="stylesheet" href="static/css/templatemo-graph-page.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 13h2v8H3zm4-8h2v13H7zm4-2h2v15h-2zm4 4h2v11h-2zm4-2h2v13h-2z" />
+                    </svg>
+                </div>
+                <span class="logo-text">Driver Monitor</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <!-- <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#reports">Reports</a></li> -->
+                <li><a href="{{url_for('register')}}">Register</a></li>
+                <li><a href="{{url_for('login')}}">Login</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <ul class="nav-links-mobile" id="navLinksMobile">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <!-- <li><a href="#analytics">Analytics</a></li>
+            <li><a href="#reports">Reports</a></li> -->
+            <li><a href="{{url_for('register')}}">Register</a></li>
+            <li><a href="{{url_for('login')}}">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="geometric-shapes">
+            <div class="shape shape1"></div>
+            <div class="shape shape2"></div>
+            <div class="shape shape3"></div>
+            <div class="shape shape4"></div>
+            <div class="shape shape5"></div>
+            <div class="shape shape6"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Smart Driver Monitoring<br>System</h1>
+                <p>Enhance road safety with our AI-powered driver monitoring system. Real-time detection of unsafe
+                    behaviors, automated alerts, and comprehensive analytics for safer driving practices.</p>
+                <a href="/detection" class="cta-button">Start Live Detection</a>
+            </div>
+
+            <div class="hero-visual">
+                <div class="city-container">
+                    <div class="building building1">
+                        <div class="building-fill"></div>
+                        <div class="building-windows"></div>
+                    </div>
+                    <div class="building building2">
+                        <div class="building-fill"></div>
+                        <div class="building-windows"></div>
+                    </div>
+                    <div class="building building3">
+                        <div class="building-fill"></div>
+                        <div class="building-windows"></div>
+                    </div>
+                    <div class="building building4">
+                        <div class="building-fill"></div>
+                        <div class="building-windows"></div>
+                    </div>
+                    <div class="neon-line neon-line1"></div>
+                    <div class="neon-line neon-line2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section" id="dashboard">
+        <div class="dashboard-container">
+            <h2 class="section-title">Monitoring So Far</h2>
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">🚗</div>
+                        <div class="stat-title">Total Monitoring Sessions</div>
+                    </div>
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-description">Driver monitoring sessions conducted with comprehensive behavior
+                        analysis.</div>
+                    <div class="stat-chart">
+                        <canvas class="mini-chart" id="miniChart1"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-title">Unsafe Events Detected</div>
+                    </div>
+                    <div class="stat-value">186</div>
+                    <div class="stat-description">Instances of unsafe driving behaviors identified and logged for
+                        review.</div>
+                    <div class="stat-chart">
+                        <canvas class="mini-chart" id="miniChart2"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">📧</div>
+                        <div class="stat-title">Alerts Sent</div>
+                    </div>
+                    <div class="stat-value">94</div>
+                    <div class="stat-description">Email notifications automatically sent to administrators for critical
+                        events.</div>
+                    <div class="stat-chart">
+                        <canvas class="mini-chart" id="miniChart3"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">😴</div>
+                        <div class="stat-title">Drowsiness Detected</div>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-description">Instances of driver drowsiness identified through facial analysis.
+                    </div>
+                    <div class="stat-chart">
+                        <canvas class="mini-chart" id="miniChart4"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">📱</div>
+                        <div class="stat-title">Phone Usage Events</div>
+                    </div>
+                    <div class="stat-value">67</div>
+                    <div class="stat-description">Unauthorized phone usage detected while driving.</div>
+                    <div class="stat-chart">
+                        <canvas class="mini-chart" id="miniChart5"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-title">System Accuracy</div>
+                    </div>
+                    <div class="stat-value">96.8%</div>
+                    <div class="stat-description">YOLOv10 model accuracy in detecting various driver behaviors.</div>
+                    <div class="stat-chart">
+                        <canvas class="mini-chart" id="miniChart6"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="copyright">© 2025 Smart Driver Monitoring System. All rights reserved.
+                | Enhancing road safety through AI-powered behavior analysis.</p>
+        </div>
+    </footer>
+
+    <script src="static/js/templatemo-graph-script.js"></script>
+</body>
+
+</html>

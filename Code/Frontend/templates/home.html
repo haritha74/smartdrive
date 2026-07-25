@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Smart Driver Monitoring System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #e2e8f0;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+            background: linear-gradient(135deg, #00ffcc 0%, #00ccff 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #0f172a;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover {
+            color: #00ffcc;
+            background: rgba(0, 255, 204, 0.1);
+        }
+
+        .nav-links a.active {
+            color: #00ffcc;
+            background: rgba(0, 255, 204, 0.1);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #e2e8f0;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content Styles */
+        .main-container {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .welcome-section h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00ffcc 0%, #00ccff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-section p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Camera Section */
+        .camera-section {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .camera-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .camera-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #e2e8f0;
+        }
+
+        .camera-header p {
+            color: #94a3b8;
+        }
+
+        .camera-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #videoFeed {
+            width: 100%;
+            height: auto;
+            display: none;
+            border-radius: 10px;
+        }
+
+        .camera-placeholder {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 10px;
+        }
+
+        .camera-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .camera-controls {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #00ffcc 0%, #00ccff 100%);
+            color: #0f172a;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .cta-button:disabled:hover {
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Detection Results */
+        .detection-results {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .results-header h3 {
+            font-size: 1.5rem;
+            color: #e2e8f0;
+        }
+
+        .status-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            border-left: 4px solid #00ffcc;
+        }
+
+        .status-item.unsafe {
+            border-left-color: #ff6b6b;
+        }
+
+        .status-icon {
+            font-size: 1.5rem;
+        }
+
+        .status-info h4 {
+            color: #e2e8f0;
+            margin-bottom: 5px;
+        }
+
+        .status-info p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #00ffcc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Footer Styles */
+        footer {
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            color: #94a3b8;
+            margin-top: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .welcome-section h1 {
+                font-size: 2rem;
+            }
+
+            .camera-section {
+                padding: 20px;
+            }
+
+            .camera-controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .status-indicators {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="/home" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 13h2v8H3zm4-8h2v13H7zm4-2h2v15h-2zm4 4h2v11h-2zm4-2h2v13h-2z" />
+                    </svg>
+                </div>
+                <span class="logo-text">Driver Monitor</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{url_for('home')}}" class="active">Home</a></li>
+                <!-- <li><a href="/detection">Live Detection</a></li> -->
+                <li><a href="{{url_for('index')}}">Logout</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1>Smart Driver Monitoring System</h1>
+            <p>AI-powered real-time driver behavior analysis for enhanced road safety</p>
+        </div>
+
+        <!-- Camera Section -->
+        <div class="camera-section">
+            <div class="camera-header">
+                <h2>Live Camera Monitoring</h2>
+                <p>Start camera to begin real-time driver behavior analysis</p>
+            </div>
+
+            <div class="camera-container">
+                <div class="video-container">
+                    <div class="camera-placeholder" id="cameraPlaceholder">
+                        <div class="camera-icon">📷</div>
+                        <p>Camera feed will appear here</p>
+                    </div>
+                    <img id="videoFeed" src="{{ url_for('video_feed') }}?t={{ range(1000000) | random }}"
+                        alt="Live Camera Feed"
+                        style="width: 100%; max-width: 800px; border-radius: 12px; display: none; border: 4px solid #00ffcc; box-shadow: 0 0 20px #00ffcc;">
+                </div>
+
+                <div class="camera-controls">
+                    <button class="cta-button" id="startCamera">
+                        <span>🎥</span>
+                        Start Camera
+                    </button>
+                    <button class="cta-button secondary" id="stopCamera" disabled>
+                        <span>⏹️</span>
+                        Stop Camera
+                    </button>
+                    <button class="cta-button secondary" id="startDetection">
+                        <span>🤖</span>
+                        Start Detection
+                    </button>
+                </div>
+
+                <div class="loading" id="loadingIndicator">
+                    <div class="loading-spinner"></div>
+                    <p>Initializing camera and detection system...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detection Results -->
+        <div class="detection-results">
+            <div class="results-header">
+                <h3>Detection Results</h3>
+                <p>Real-time behavior analysis feedback</p>
+            </div>
+
+            <div class="status-indicators">
+                <div class="status-item">
+                    <div class="status-icon">😊</div>
+                    <div class="status-info">
+                        <h4>Safe Driving</h4>
+                        <p>Driver is focused and alert</p>
+                    </div>
+                </div>
+                <div class="status-item unsafe">
+                    <div class="status-icon">😴</div>
+                    <div class="status-info">
+                        <h4>Drowsiness</h4>
+                        <p>No signs detected</p>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon">📱</div>
+                    <div class="status-info">
+                        <h4>Phone Usage</h4>
+                        <p>Not detected</p>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon">🚫</div>
+                    <div class="status-info">
+                        <h4>Distraction</h4>
+                        <p>No distraction detected</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="copyright">© 2025 Smart Driver Monitoring System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const startCameraBtn = document.getElementById('startCamera');
+        const stopCameraBtn = document.getElementById('stopCamera');
+        const startDetectionBtn = document.getElementById('startDetection');
+        const videoFeed = document.getElementById('videoFeed');
+        const cameraPlaceholder = document.getElementById('cameraPlaceholder');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        // Start Camera – Forces fresh stream every time (critical fix!)
+        startCameraBtn.addEventListener('click', function () {
+            cameraPlaceholder.style.display = 'none';
+            videoFeed.style.display = 'block';
+            loadingIndicator.style.display = 'block';
+
+            // This line is the MAGIC – forces browser to reload the MJPEG stream
+            videoFeed.src = "{{ url_for('video_feed') }}?t=" + new Date().getTime();
+
+            setTimeout(() => {
+                loadingIndicator.style.display = 'none';
+                stopCameraBtn.disabled = false;
+                startDetectionBtn.disabled = false;
+                startCameraBtn.innerHTML = '<span>Camera Active</span>';
+                startCameraBtn.style.background = 'linear-gradient(135deg, #96c93d 0%, #00b09b 100%)';
+            }, 1800);
+        });
+
+        // Stop Camera – clears the stream completely
+        stopCameraBtn.addEventListener('click', function () {
+            videoFeed.src = '';  // This stops the stream 100%
+            videoFeed.style.display = 'none';
+            cameraPlaceholder.style.display = 'flex';
+            loadingIndicator.style.display = 'none';
+
+            stopCameraBtn.disabled = true;
+            startDetectionBtn.disabled = true;
+
+            // Reset Start button
+            startCameraBtn.disabled = false;
+            startCameraBtn.innerHTML = '<span>Start Camera</span>';
+            startCameraBtn.style.background = 'linear-gradient(135deg, #00ffcc 0%, #00ccff 100%)';
+
+            // Reset Detection button
+            startDetectionBtn.innerHTML = '<span>Start Detection</span>';
+            startDetectionBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+        });
+
+        // Detection Button – just UI (real detection runs on server)
+        startDetectionBtn.addEventListener('click', function () {
+            if (videoFeed.style.display === 'none') {
+                alert("Please start the camera first!");
+                return;
+            }
+
+            const isRunning = this.textContent.includes('Stop');
+
+            if (isRunning) {
+                this.innerHTML = '<span>Start Detection</span>';
+                this.style.background = 'rgba(255, 255, 255, 0.1)';
+            } else {
+                this.innerHTML = '<span>Stop Detection</span>';
+                this.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%)';
+            }
+        });
+
+        // Optional: Auto-reload stream if it freezes
+        videoFeed.onerror = function () {
+            console.log("Stream lost, reconnecting...");
+            if (videoFeed.style.display === 'block') {
+                setTimeout(() => {
+                    videoFeed.src = "{{ url_for('video_feed') }}?t=" + new Date().getTime();
+                }, 1000);
+            }
+        };
+    </script>
+</body>
+
+</html>
